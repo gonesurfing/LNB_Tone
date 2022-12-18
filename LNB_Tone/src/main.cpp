@@ -1,8 +1,8 @@
 #include <avr/io.h>
 
 int main() {
-  DDRB |= (1<<PB1); //PB1 (pin 6) as clock output
-  DDRB |= (1<<PB2); //PB2 (pin 7) as LED output
+  DDRB |= (1<<PB0); //PB0 (pin 5) as clock output
+  DDRB |= (1<<PB1); //PB1 (pin 6) as LED output
 
   TCCR0A |= (1 << COM0A0); //toggle OC0A (pin 6)
   TCCR0A |= (1 << WGM01); //CTC mode
@@ -10,7 +10,9 @@ int main() {
 
   // This value determines the output frequency
   // fOCnx = fclk / (2 * N * (1+OCRnx))
-  OCR0A = 181; //21.978khz
+  // 1,000,000 = (2 * 1 * (1 + OCR0A))
+  OCR0A = 22; //21.74khz
+  PORTB |= (1<<PB1);
 
   while(1) {
 
